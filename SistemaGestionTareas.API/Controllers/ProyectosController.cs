@@ -1,6 +1,78 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//using Microsoft.AspNetCore.Mvc;
+//using SistemaGestionTareas;
+//using SistemaGestionTareas.API.Data;
+//using SistemaGestionTareas.Consumer;
+
+//namespace SistemaGestionTareas.API.Controllers
+//{
+//    [Route("api/[controller]")]
+//    [ApiController]
+//    public class ProyectosController : ControllerBase
+//    {
+//        private readonly CrudService<Proyecto> _crudService;
+//        private readonly AppDbContext _context;
+
+//        // Constructor
+//        public ProyectosController(CrudService<Proyecto> crudService)
+//        {
+//            _crudService = crudService;
+//        }
+
+//        // GET: api/proyectos
+//        [HttpGet]
+//        public IActionResult Get()
+//        {
+//            var proyectos = _crudService.GetAll();
+//            return Ok(proyectos);
+//        }
+
+//        // GET: api/proyectos/1
+//        [HttpGet("{id}")]
+//        public IActionResult GetById(int id)
+//        {
+//            var proyecto = _crudService.GetById(id);
+//            if (proyecto == null)
+//            {
+//                return NotFound(); 
+//            }
+//            return Ok(proyecto);
+//        }
+
+//        // POST: api/proyectos
+//        [HttpPost]
+//        public IActionResult Post([FromBody] Proyecto proyecto)
+//        {
+//            _crudService.Create(proyecto); 
+//            return CreatedAtAction(nameof(GetById), new { id = proyecto.Id }, proyecto); 
+//        }
+
+//        // PUT: api/proyectos/1
+//        [HttpPut("{id}")]
+//        public IActionResult Put(int id, [FromBody] Proyecto proyecto)
+//        {
+//            if (id != proyecto.Id)
+//            {
+//                return BadRequest(); 
+//            }
+
+//            _crudService.Update(proyecto); 
+//            return NoContent();
+//        }
+
+//        // DELETE: api/proyectos/1
+//        [HttpDelete("{id}")]
+//        public IActionResult Delete(int id)
+//        {
+//            _crudService.Delete(id); 
+//            return NoContent();
+//        }
+//    }
+//}
+
+using Microsoft.AspNetCore.Mvc;
 using SistemaGestionTareas;
 using SistemaGestionTareas.API.Data;
+using SistemaGestionTareas.Consumer;
 
 namespace SistemaGestionTareas.API.Controllers
 {
@@ -9,11 +81,12 @@ namespace SistemaGestionTareas.API.Controllers
     public class ProyectosController : ControllerBase
     {
         private readonly CrudService<Proyecto> _crudService;
+        private readonly AppDbContext _context;
 
         // Constructor
         public ProyectosController(CrudService<Proyecto> crudService)
         {
-            _crudService = crudService;
+            _crudService = crudService ?? throw new ArgumentNullException(nameof(crudService)); // Verifica que el servicio esté inyectado correctamente
         }
 
         // GET: api/proyectos
@@ -31,7 +104,7 @@ namespace SistemaGestionTareas.API.Controllers
             var proyecto = _crudService.GetById(id);
             if (proyecto == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
             return Ok(proyecto);
         }
@@ -40,8 +113,8 @@ namespace SistemaGestionTareas.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Proyecto proyecto)
         {
-            _crudService.Create(proyecto); 
-            return CreatedAtAction(nameof(GetById), new { id = proyecto.Id }, proyecto); 
+            _crudService.Create(proyecto);
+            return CreatedAtAction(nameof(GetById), new { id = proyecto.Id }, proyecto);
         }
 
         // PUT: api/proyectos/1
@@ -50,10 +123,10 @@ namespace SistemaGestionTareas.API.Controllers
         {
             if (id != proyecto.Id)
             {
-                return BadRequest(); 
+                return BadRequest();
             }
 
-            _crudService.Update(proyecto); 
+            _crudService.Update(proyecto);
             return NoContent();
         }
 
@@ -61,8 +134,9 @@ namespace SistemaGestionTareas.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _crudService.Delete(id); 
+            _crudService.Delete(id);
             return NoContent();
         }
     }
 }
+

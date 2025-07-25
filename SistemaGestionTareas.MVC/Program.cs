@@ -1,11 +1,17 @@
+using SistemaGestionTareas.Consumer;
+using SistemaGestionTareas;
+
 namespace SistemaGestionTareas.MVC
+    
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            Crud<Proyecto>.EndPoint = "https://localhost:7056/api/Proyectos";
+            Crud<Tarea>.EndPoint = "https://localhost:7056/api/Tareas";
+            Crud<Usuario>.EndPoint = "https://localhost:7056/api/Usuarios";
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
