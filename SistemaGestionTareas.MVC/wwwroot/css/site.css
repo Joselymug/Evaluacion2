@@ -20,3 +20,25 @@ html {
 body {
   margin-bottom: 60px;
 }
+body {
+    background-color: #feaebb; 
+}
+
+:root {
+    --primary-color: #7A00D4;
+    --primary-light: #B486F6;
+    --accent-color: #00C6C6;
+    --accent-dark: #008a8a;
+    --dark-color: #3D0026;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --warning-color: #ffc107;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-primary: 0 8px 32px rgba(122, 0, 212, 0.3);
+    --shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}

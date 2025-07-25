@@ -1,10 +1,9 @@
 ﻿using Dapper;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Configuration;
 using SistemaGestionTareas;
+using System.Collections.Generic;
 using System.Data.SqlClient;
-
+using System.Linq;
 
 namespace SistemaGestionTareas.API.Data
 {
@@ -12,9 +11,10 @@ namespace SistemaGestionTareas.API.Data
     {
         private readonly string _connectionString;
 
-        public CrudService(string connectionString)
+
+        public CrudService(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         // Obtener todos los registros
@@ -24,7 +24,7 @@ namespace SistemaGestionTareas.API.Data
             {
                 connection.Open();
                 var tableName = typeof(T).Name + "s"; // Nombre de la tabla dinámico
-                var query = $"SELECT * FROM {tableName}"; // Consulta SQL
+                var query = $"SELECT * FROM {tableName}";
                 return connection.Query<T>(query).ToList();
             }
         }
@@ -36,7 +36,7 @@ namespace SistemaGestionTareas.API.Data
             {
                 connection.Open();
                 var tableName = typeof(T).Name + "s"; // Nombre de la tabla dinámico
-                var query = $"SELECT * FROM {tableName} WHERE Id = @Id"; // Consulta SQL
+                var query = $"SELECT * FROM {tableName} WHERE Id = @Id";
                 return connection.QuerySingleOrDefault<T>(query, new { Id = id });
             }
         }
@@ -50,8 +50,8 @@ namespace SistemaGestionTareas.API.Data
                 var tableName = typeof(T).Name + "s"; // Nombre de la tabla dinámico
                 var columns = string.Join(", ", typeof(T).GetProperties().Select(p => p.Name)); // Nombres de las columnas
                 var values = string.Join(", ", typeof(T).GetProperties().Select(p => "@" + p.Name)); // Valores para insertar
-                var query = $"INSERT INTO {tableName} ({columns}) VALUES ({values})"; // Consulta SQL
-                connection.Execute(query, entity); // Ejecuta la consulta
+                var query = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
+                connection.Execute(query, entity);
             }
         }
 
@@ -63,8 +63,8 @@ namespace SistemaGestionTareas.API.Data
                 connection.Open();
                 var tableName = typeof(T).Name + "s"; // Nombre de la tabla dinámico
                 var setColumns = string.Join(", ", typeof(T).GetProperties().Select(p => $"{p.Name} = @{p.Name}")); // Columnas a actualizar
-                var query = $"UPDATE {tableName} SET {setColumns} WHERE Id = @Id"; // Consulta SQL
-                connection.Execute(query, entity); // Ejecuta la consulta
+                var query = $"UPDATE {tableName} SET {setColumns} WHERE Id = @Id";
+                connection.Execute(query, entity);
             }
         }
 
@@ -75,8 +75,8 @@ namespace SistemaGestionTareas.API.Data
             {
                 connection.Open();
                 var tableName = typeof(T).Name + "s"; // Nombre de la tabla dinámico
-                var query = $"DELETE FROM {tableName} WHERE Id = @Id"; // Consulta SQL
-                connection.Execute(query, new { Id = id }); // Ejecuta la consulta
+                var query = $"DELETE FROM {tableName} WHERE Id = @Id";
+                connection.Execute(query, new { Id = id });
             }
         }
     }

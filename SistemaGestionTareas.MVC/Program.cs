@@ -9,9 +9,14 @@ namespace SistemaGestionTareas.MVC
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            Crud<Proyecto>.EndPoint = "https://localhost:7056/api/Proyectos";
-            Crud<Tarea>.EndPoint = "https://localhost:7056/api/Tareas";
-            Crud<Usuario>.EndPoint = "https://localhost:7056/api/Usuarios";
+            //Crud<Proyecto>.EndPoint = "https://localhost:7056/api/Proyectos";
+            //Crud<Tarea>.EndPoint = "https://localhost:7056/api/Tareas";
+            //Crud<Usuario>.EndPoint = "https://localhost:7056/api/Usuarios";
+
+            Crud<Proyecto>.EndPoint = "https://localhost:7118/api/Proyectos";
+            Crud<Tarea>.EndPoint = "https://localhost:7118/api/Tareas";
+            Crud<Usuario>.EndPoint = "https://localhost:7118/api/Usuarios";
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 

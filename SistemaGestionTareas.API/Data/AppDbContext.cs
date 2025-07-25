@@ -1,12 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Data;
-using System.Data.SqlClient;
-using System.Data;
-using Microsoft.Extensions.Configuration;
-
-using System.Data.SqlClient;
-using System.Data;
-using SqlConnection = System.Data.SqlClient.SqlConnection;
 
 namespace SistemaGestionTareas.API.Data
 {
@@ -22,4 +15,3 @@ namespace SistemaGestionTareas.API.Data
         public IDbConnection Connection => new SqlConnection(_connectionString);
     }
 }
-

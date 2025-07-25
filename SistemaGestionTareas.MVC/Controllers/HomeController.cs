@@ -15,7 +15,12 @@ namespace SistemaGestionTareas.MVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)  // Verifica si el usuario no está autenticado
+            {
+                return RedirectToAction("Login", "Account");  // Redirige a la página de login
+            }
+
+            return View("Index");
         }
 
         public IActionResult Privacy()
